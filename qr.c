@@ -310,13 +310,19 @@ int main(){
         int j,k;
         clock_t tic = clock();
 
-        matrix *A = get_random_matrix(300,300,100);
+        matrix *A = get_random_matrix(200,200,100);
         matrix *Q = make_zeroes_matrix(A->rows, A->cols);
         matrix *R = make_zeroes_matrix(A->rows, A->cols);
         make_QR_decomposition(A, Q, R);
 
         matrix *QR = make_zeroes_matrix(A->rows, A->cols);
         multiply_matricies(Q,R,QR);
+
+        matrix *subt = make_zeroes_matrix(A->rows, A->cols);
+        subtract_matricies(A, QR, subt);
+
+        double frob = get_frobenius_norm(subt);
+
         clock_t toc = clock();
 
         FILE *fp;
@@ -330,6 +336,7 @@ int main(){
             }
             fprintf (fp, "\n");
         }
+        fprintf(fp, "Frobenius norm: %f\n", frob);
 
         fclose (fp); // zamknij plik
 
