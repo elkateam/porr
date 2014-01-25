@@ -88,6 +88,17 @@ matrix* init_matrix(int num_rows, int num_cols){
     }
     return m;
 }
+matrix* get_random_matrix(int num_rows, int num_cols, int zakres) {
+    matrix *m = init_matrix(num_rows, num_cols);
+    srand(time(NULL));
+    int i,j;
+    for (i=0; i<m->rows; i++){
+        for (j=0; j<m->cols; j++){
+            m->v_arr[i][j]=rand()%zakres;
+        }
+    }
+    return m;
+}
 
 void free_matrix_memory(matrix* m){
     int i;
@@ -327,6 +338,10 @@ void make_QR_decomposition(matrix *A, matrix *Q, matrix *R){
 
 
 int main(){
+    /*Losowa macierz:
+    matrix *a = get_random_matrix(10,10,100);
+    print_matrix(a);
+    free_matrix_memory(a);*/
     double czas = 0.0;
     int i=0;
     for (; i<100; ++i) {
@@ -355,7 +370,7 @@ int main(){
         fprintf (fp, "\n");
     }
 
-    fclose (fp); /* zamknij plik */
+    fclose (fp); // zamknij plik
 
     free_matrix_memory(QR);
     free_matrix_memory(R);
