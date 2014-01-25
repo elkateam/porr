@@ -9,73 +9,6 @@ typedef struct{
     double **v_arr;
 }matrix;
 
-double c [][30] = {
-    {3,1,2,1,4,3,5,1,2,2,0,0.01,1,2,1,1,6,7,3,5,1,2,3,3,2,4,4,3,2},
-{4,2,3,1,6,7,3,5,3,1,2,2,8,5,3,4,1,6,7,3,5,6,8,1,2,4,2,1,5,5},
-{0,0.01,1,2,0,0.01,1,6,7,3,5,3,2,4,4,8,1,2,1,4,4,3,2,1,4,4,3,2},
-{4,2,3,1,2,1,4,1,3,1,2,1,1,6,7,3,5,1,3,5,2,1,4,3,5,1,2,2,2,5},
-{1,6,7,3,5,3,1,6,7,3,5,6,8,1,2,4,2,4,4,8,1,6,7,3,5,1,2,3,3,2},
-{29,9,15,4,8,12,8,22,8,26,26,2,22,25,25,17,28,11,3,13,20,14,21,30,8,10,2,7,2,9},
-{6,5,24,4,26,21,5,18,16,21,28,11,6,24,1,3,20,12,22,11,23,18,11,27,6,30,2,19,25,23},
-{1,3,1,21,18,9,11,27,28,1,4,12,8,27,25,16,25,19,7,8,24,30,16,29,23,12,13,24,29,26},
-{9,7,23,22,4,23,10,27,27,21,8,24,26,23,15,7,3,4,28,14,17,13,1,15,3,20,7,27,2,9},
-{10,12,2,18,17,23,3,17,29,23,14,4,14,16,23,3,16,4,3,11,13,23,2,6,25,14,18,29,16,2},
-{10,28,4,10,22,4,28,6,7,20,1,18,22,26,1,1,14,18,13,4,22,13,20,1,21,14,19,9,10,20},
-{16,22,3,23,12,11,6,4,21,25,6,11,3,8,22,8,22,1,9,29,1,9,11,15,18,5,2,9,2,16},
-{18,12,7,30,16,28,10,27,21,29,21,13,30,9,10,14,11,17,7,9,11,5,1,23,18,3,14,22,25,17},
-{26,1,10,19,23,23,1,11,5,30,9,25,5,18,24,24,26,2,13,19,1,28,9,27,4,1,8,20,4,10},
-{7,9,30,30,4,3,12,8,18,5,11,28,15,20,27,3,28,3,5,9,14,26,4,23,26,23,24,6,20,25},
-{19,15,28,24,12,14,29,6,11,8,3,21,27,29,2,13,8,8,29,26,17,7,22,1,26,11,14,12,26,7},
-{18,23,15,11,12,6,29,2,13,6,10,1,9,1,18,18,27,7,7,12,19,6,25,18,16,7,17,24,16,7},
-{3,30,3,16,3,7,29,28,23,4,1,7,7,28,10,28,22,4,7,19,27,3,28,14,19,17,18,26,16,17},
-{19,8,7,30,28,9,13,2,24,18,15,7,29,18,9,29,28,28,8,25,25,3,14,25,28,8,5,17,20,2},
-{9,28,23,22,6,19,11,9,13,4,6,29,25,16,11,27,1,5,7,18,28,5,13,27,1,9,14,4,28,14},
-{25,2,5,27,20,27,13,8,21,8,18,28,2,16,30,8,8,28,9,30,21,10,17,29,10,22,1,7,6,2},
-{23,18,25,16,16,18,5,2,24,10,4,17,1,9,10,23,18,7,22,18,24,13,22,3,27,24,3,9,13,2},
-{30,8,4,3,16,30,21,27,22,22,20,20,14,30,5,6,11,12,8,11,5,27,1,24,21,5,21,21,5,27},
-{7,22,11,30,2,16,23,22,6,19,7,14,30,29,6,30,22,7,7,26,16,19,10,8,12,15,8,15,11,7},
-{23,18,1,13,23,21,15,26,13,20,26,13,24,30,20,21,3,11,19,22,13,25,17,5,23,17,3,3,23,1},
-{25,14,15,23,1,27,11,17,29,15,4,3,3,1,5,24,25,30,24,13,30,25,13,12,4,3,11,23,29,30},
-{29,12,28,11,1,26,13,13,16,21,14,11,21,2,27,8,26,15,19,4,27,4,9,5,23,2,1,10,14,27},
-{5,2,28,10,6,14,28,6,13,10,3,21,26,17,2,27,29,12,10,16,14,28,12,23,8,26,7,8,12,24},
-{26,4,26,3,13,30,12,21,15,24,12,20,8,11,7,28,29,14,27,5,24,12,22,10,18,22,15,5,23,1},
-{15,2,14,23,9,8,5,7,1,20,23,27,14,21,3,26,22,19,7,13,29,15,4,16,3,15,17,15,9,29},
-};
-
-double zeros [][30] = {
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-};
-
-
 // samo zaalokowanie pamieci
 matrix* init_matrix(int num_rows, int num_cols){
     matrix* m = malloc(sizeof(matrix));
@@ -94,10 +27,36 @@ matrix* get_random_matrix(int num_rows, int num_cols, int zakres) {
     int i,j;
     for (i=0; i<m->rows; i++){
         for (j=0; j<m->cols; j++){
-            m->v_arr[i][j]=rand()%zakres;
+            if (i==j){
+                m->v_arr[i][j]=rand()%zakres+(num_cols-1)*zakres;
+            } else {
+                m->v_arr[i][j]=rand()%zakres;
+            }
         }
     }
     return m;
+}
+
+matrix* make_zeroes_matrix(int num_rows, int num_cols){
+    int i,j;
+    matrix* m = init_matrix(num_rows, num_cols);
+    for (i=0; i<num_rows; i++){
+        for (j=0; j<num_cols; j++){
+            m->v_arr[i][j] = 0.0;
+        }
+    }
+    return m;
+}
+
+double get_frobenius_norm(matrix *m){
+    double result = 0.0;
+    int i, j;
+    for (i=0; i<m->rows; i++){
+        for (j=0; j<m->cols; j++){
+            result = result + (m->v_arr[i][j]*m->v_arr[i][j]);
+        }
+    }
+    return sqrt(result);
 }
 
 void free_matrix_memory(matrix* m){
@@ -265,7 +224,7 @@ void make_copy_of_matrix(matrix *from, matrix *to){
 }
 
 void householder_decomposition(matrix *A, matrix *Q, int n){
-    matrix *minorA = get_matrix_data(zeros, A->rows, A->cols);
+    matrix *minorA = make_zeroes_matrix(A->rows, A->cols);
     get_minor_of_matrix(A, minorA, n);
     double *x = malloc(sizeof(double)*minorA->rows);
     get_nth_column_of_matrix(minorA, n, x);
@@ -296,21 +255,21 @@ void make_QR_decomposition(matrix *A, matrix *Q, matrix *R){
     multiply_qtab[0] = A;
     for (i=0; i<A->cols-1; i++){
         if (i>0){
-            multiply_qtab[i] = get_matrix_data(zeros, A->rows, A->cols);
+            multiply_qtab[i] = make_zeroes_matrix(A->rows, A->cols);
             multiply_matricies(qtab[i-1],A,multiply_qtab[i]);
         }
-        qtab[i] = get_matrix_data(zeros, A->rows, A->cols);
+        qtab[i] = make_zeroes_matrix(A->rows, A->cols);
         householder_decomposition(multiply_qtab[i], qtab[i], i);
     }
 
-    matrix *Q1 = get_matrix_data(zeros, A->rows, A->cols);
-    matrix *Q2 = get_matrix_data(zeros, A->rows, A->cols);
+    matrix *Q1 = make_zeroes_matrix(A->rows, A->cols);
+    matrix *Q2 = make_zeroes_matrix(A->rows, A->cols);
     Q1 = qtab[0];
     Q2 = qtab[1];
     //inicjuje, zeby nie sypnelo segfaultem
     matrix *tmp_multiply_qtab[A->cols-2];
     for (i=0; i<A->cols-2; i++){
-        tmp_multiply_qtab[i] = get_matrix_data(zeros, A->rows, A->cols);
+        tmp_multiply_qtab[i] = make_zeroes_matrix(A->rows, A->cols);
     }
     //glowna petla gdzie mnoze elementy
     for (i=0; i<A->cols-2; i++){
@@ -328,7 +287,8 @@ void make_QR_decomposition(matrix *A, matrix *Q, matrix *R){
         free_matrix_memory(tmp_multiply_qtab[i]);
     //a tu znowu odwaracam to Q
     //bo jest mi potrzebne do R (R = Q'*A)
-    matrix *Qtransposed = get_matrix_data(zeros, A->rows, A->cols);
+    matrix *Qtransposed = make_zeroes_matrix(A->rows, A->cols);
+
     make_copy_of_matrix(Q, Qtransposed);
     get_matrix_transposition(Qtransposed);
     multiply_matricies(Qtransposed, A, R);
@@ -338,47 +298,48 @@ void make_QR_decomposition(matrix *A, matrix *Q, matrix *R){
 
 
 int main(){
-    /*Losowa macierz:
+    //Losowa macierz:
     matrix *a = get_random_matrix(10,10,100);
     print_matrix(a);
-    free_matrix_memory(a);*/
+    double frobenius = get_frobenius_norm(a);
+    printf("Frobenius: %f\n", frobenius);
+    free_matrix_memory(a);
     double czas = 0.0;
     int i=0;
-    for (; i<100; ++i) {
-    int j,k;
-    clock_t tic = clock();
+    //for (; i<100; ++i) {
+        int j,k;
+        clock_t tic = clock();
 
-    matrix *A = get_matrix_data(c, 30, 30);
-    matrix *Q = get_matrix_data(zeros, A->rows, A->cols);
-    matrix *R = get_matrix_data(zeros, A->rows, A->cols);
-    make_QR_decomposition(A, Q, R);
+        matrix *A = get_random_matrix(300,300,100);
+        matrix *Q = make_zeroes_matrix(A->rows, A->cols);
+        matrix *R = make_zeroes_matrix(A->rows, A->cols);
+        make_QR_decomposition(A, Q, R);
 
-    matrix *QR = get_matrix_data(zeros, A->rows, A->cols);
-    multiply_matricies(Q,R,QR);
-    clock_t toc = clock();
+        matrix *QR = make_zeroes_matrix(A->rows, A->cols);
+        multiply_matricies(Q,R,QR);
+        clock_t toc = clock();
 
-    FILE *fp;
-    if ((fp=fopen("out.txt", "w"))==NULL) {
-        printf ("Nie mogê otworzyæ pliku test.txt do zapisu!\n");
-        exit(1);
-    }
-    for (j = 0; j <QR->rows;++j)
-    {
-        for (k=0; k<QR->rows;++k) {
-             fprintf (fp, "%f ", QR->v_arr[j][k]);
+        FILE *fp;
+        if ((fp=fopen("out.txt", "w"))==NULL) {
+            printf ("Nie moge otworzyc pliku out.txt do zapisu!\n");
+            exit(1);
         }
-        fprintf (fp, "\n");
-    }
+        for (j = 0; j <QR->rows;++j) {
+            for (k=0; k<QR->rows;++k) {
+                 fprintf (fp, "%f ", QR->v_arr[j][k]);
+            }
+            fprintf (fp, "\n");
+        }
 
-    fclose (fp); // zamknij plik
+        fclose (fp); // zamknij plik
 
-    free_matrix_memory(QR);
-    free_matrix_memory(R);
-    free_matrix_memory(Q);
-    free_matrix_memory(A);
-    czas+=(double)(toc-tic)*1000/CLOCKS_PER_SEC;
-    }
-    printf("Czas wykonania: %5.1f [ms]", czas/100);
+        free_matrix_memory(QR);
+        free_matrix_memory(R);
+        free_matrix_memory(Q);
+        free_matrix_memory(A);
+        czas+=(double)(toc-tic)*1000/CLOCKS_PER_SEC;
+    //}
+    printf("Czas wykonania: %5.1f [s]", czas/1000);
 
     return 0;
 }
