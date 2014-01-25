@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <openacc.h>
 
 typedef struct{
     int rows;
@@ -25,7 +26,9 @@ matrix* get_random_matrix(int num_rows, int num_cols, int zakres) {
     matrix *m = init_matrix(num_rows, num_cols);
     srand(time(NULL));
     int i,j;
+    #pragma acc kernels loop
     for (i=0; i<m->rows; i++){
+    #pragma acc loop gang(16), vector(32)
         for (j=0; j<m->cols; j++){
             if (i==j){
                 m->v_arr[i][j]=rand()%zakres+(num_cols-1)*zakres;
@@ -51,7 +54,9 @@ matrix* make_zeroes_matrix(int num_rows, int num_cols){
 double get_frobenius_norm(matrix *m){
     double result = 0.0;
     int i, j;
+#pragma acc kernels loop
     for (i=0; i<m->rows; i++){
+#pragma acc loop gang(16), vector(32)
         for (j=0; j<m->cols; j++){
             result = result + (m->v_arr[i][j]*m->v_arr[i][j]);
         }
@@ -95,6 +100,7 @@ matrix* get_matrix_data(int cols; double a[][cols], int rows, int cols){
 double get_euclides_norm(int size_x; double x[size_x], int size_x){
     int i;
     double norm=0.0;
+#pragma acc loop gang(16), vector(32)
     for (i=0; i<size_x; i++){
         norm+=(x[i]*x[i]);
     }
@@ -111,8 +117,9 @@ void get_e_vector(int size_e; double *e, int pos_of_one, int size_e){
 void get_matrix_transposition(matrix* m){
     int i,j;
     double tmp_elem;
-
+#pragma acc kernels loop
     for (i=0; i<m->rows; i++){
+#pragma acc loop gang(16), vector(32)
         for (j=0; j<i; j++){
             tmp_elem = m->v_arr[i][j];
             m->v_arr[i][j]= m->v_arr[j][i];
@@ -124,9 +131,11 @@ void get_matrix_transposition(matrix* m){
 void multiply_matricies(matrix *m1, matrix *m2, matrix *result){
     //result = init_matrix(m1->rows, m2->cols);
     int i,j,k;
-    #pragma omp parallel for private(i, j, k) shared (result, m1,m2)
+#pragma acc kernels loop
     for (i=0; i<m1->rows; i++){
+#pragma acc loop gang(16), vector(32)
         for (j=0; j<m2->cols; j++){
+#pragma acc loop gang(16), vector(32)
             for (k=0; k<m1->cols; k++){
                 result->v_arr[i][j] += m1->v_arr[i][k] * m2->v_arr[k][j];
             }
@@ -136,6 +145,7 @@ void multiply_matricies(matrix *m1, matrix *m2, matrix *result){
 
 void multiply_column_by_scalar(int size_n; double *n, int size_n, double scalar){
     int i;
+#pragma acc loop gang(16), vector(32)
     for (i=0; i<size_n; i++){
         n[i]=n[i]*scalar;
     }
@@ -143,6 +153,7 @@ void multiply_column_by_scalar(int size_n; double *n, int size_n, double scalar)
 
 void divide_column_by_scalar(int size_n; double n[size_n], int size_n, double scalar){
     int i;
+#pragma acc loop gang(16), vector(32)
     for (i=0; i<size_n; i++){
         n[i]=n[i]/scalar;
     }
@@ -155,7 +166,9 @@ void get_v(int size_u; double u[size_u], int size_u){
 
 void subtract_matricies(matrix *m1, matrix *m2, matrix *result){
     int i,j;
+#pragma acc kernels loop
     for (i=0; i<m1->rows; i++){
+#pragma acc loop gang(16), vector(32)
         for (j=0; j<m1->cols; j++){
             result->v_arr[i][j]=m1->v_arr[i][j]-m2->v_arr[i][j];
         }
@@ -167,7 +180,9 @@ matrix* init_ones_matrix(int rows, int cols){
         return 0;
     matrix* ones = init_matrix(rows, cols);
     int i,j;
+#pragma acc kernels loop
     for (i=0; i<ones->rows; i++){
+#pragma acc loop gang(16), vector(32)
         for (j=0; j<ones->cols; j++){
             ones->v_arr[i][j] = (i==j) ? 1.0 : 0.0;
         }
@@ -189,6 +204,7 @@ void get_minor_of_matrix(matrix *m, matrix *x, int d){
 
 void get_nth_column_of_matrix(matrix* m, int n, double *v){
     int i;
+#pragma acc kernels loop
     for (i=0; i<m->rows; i++){
         v[i] = m->v_arr[i][n];
     }
@@ -196,7 +212,7 @@ void get_nth_column_of_matrix(matrix* m, int n, double *v){
 
 void add_two_columns(double *col1, double *col2, int size_cols){
     int i;
-
+#pragma acc kernels loop
     for (i=0; i<size_cols; i++){
         col1[i]+=col2[i];
     }
@@ -205,8 +221,9 @@ void add_two_columns(double *col1, double *col2, int size_cols){
 matrix *get_multiply_v(double *v, int size_v){
     matrix *tmp = init_matrix(size_v, size_v);
     int i,j;
-
+#pragma acc kernels loop
     for (i=0; i<tmp->rows; i++){
+#pragma acc loop gang(16), vector(32)
         for (j=0; j<tmp->cols; j++){
             tmp->v_arr[i][j] = 2*v[i]*v[j];
         }
@@ -216,7 +233,9 @@ matrix *get_multiply_v(double *v, int size_v){
 
 void make_copy_of_matrix(matrix *from, matrix *to){
     int i,j;
+#pragma acc kernels loop
     for (i=0; i<from->rows; i++){
+#pragma acc loop gang(16), vector(32)
         for (j=0; j<from->cols; j++){
             to->v_arr[i][j] = from->v_arr[i][j];
         }
@@ -253,6 +272,14 @@ void make_QR_decomposition(matrix *A, matrix *Q, matrix *R){
     matrix *qtab[A->cols-1];
     matrix *multiply_qtab[A->cols-1];
     multiply_qtab[0] = A;
+
+#pragma acc data copy(Q[A->rows][A->cols], R[A->rows][A->cols]) copyin(qtab[A->cols-1],multiply_qtab[A->cols-1], A[A->rows][A->cols])
+{
+
+#pragma acc region present(Q[A->rows][A->cols], R[A->rows][A->cols])
+    {
+
+#pragma acc loop gang(16), vector(32)
     for (i=0; i<A->cols-1; i++){
         if (i>0){
             multiply_qtab[i] = make_zeroes_matrix(A->rows, A->cols);
@@ -268,12 +295,15 @@ void make_QR_decomposition(matrix *A, matrix *Q, matrix *R){
     Q2 = qtab[1];
     //inicjuje, zeby nie sypnelo segfaultem
     matrix *tmp_multiply_qtab[A->cols-2];
+#pragma acc loop gang(16), vector(32)
     for (i=0; i<A->cols-2; i++){
         tmp_multiply_qtab[i] = make_zeroes_matrix(A->rows, A->cols);
     }
     //glowna petla gdzie mnoze elementy
+#pragma acc loop gang(16), vector(32)
     for (i=0; i<A->cols-2; i++){
         multiply_matricies(Q1, Q2, tmp_multiply_qtab[i]);
+#pragma acc loop gang(16), vector(32)
         if (i+2 < A->cols-2){
             make_copy_of_matrix(tmp_multiply_qtab[i], Q1);
             make_copy_of_matrix(qtab[i+2], Q2);
@@ -283,6 +313,7 @@ void make_QR_decomposition(matrix *A, matrix *Q, matrix *R){
     make_copy_of_matrix(tmp_multiply_qtab[A->cols-3],Q);
     free_matrix_memory(Q2);
     free_matrix_memory(Q1);
+#pragma acc kernels loop
     for (i=0; i<A->cols-2; i++)
         free_matrix_memory(tmp_multiply_qtab[i]);
     //a tu znowu odwaracam to Q
@@ -293,17 +324,24 @@ void make_QR_decomposition(matrix *A, matrix *Q, matrix *R){
     get_matrix_transposition(Qtransposed);
     multiply_matricies(Qtransposed, A, R);
     free_matrix_memory(Qtransposed);
+    }
+}
 }
 
 
 
 int main(){
     //Losowa macierz:
-    matrix *a = get_random_matrix(10,10,100);
+    /*matrix *a = get_random_matrix(10,10,100);
     print_matrix(a);
     double frobenius = get_frobenius_norm(a);
     printf("Frobenius: %f\n", frobenius);
-    free_matrix_memory(a);
+    free_matrix_memory(a);*/
+
+#if _OPENACC
+    acc_init(acc_device_nvidia);
+#endif
+
     double czas = 0.0;
     int i=0;
     //for (; i<100; ++i) {
