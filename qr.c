@@ -86,7 +86,7 @@ void print_matrix(matrix* m){
 }
 
 // wypelnienie wartosciami - trzeba zawsze nowa macierz wypelnic zerami, inaczej czesto zostaja smieci w pamieci i zle sie liczy
-matrix* get_matrix_data(int cols; double a[][cols], int rows, int cols){
+matrix* get_matrix_data(double **a, int rows, int cols){
     int i,j;
     matrix* m = init_matrix(rows, cols);
     for (i=0; i<rows; i++){
@@ -97,7 +97,7 @@ matrix* get_matrix_data(int cols; double a[][cols], int rows, int cols){
     return m;
 }
 
-double get_euclides_norm(int size_x; double x[size_x], int size_x){
+double get_euclides_norm(double x[], int size_x){
     int i;
     double norm=0.0;
 #pragma acc loop gang(16), vector(32)
@@ -107,7 +107,7 @@ double get_euclides_norm(int size_x; double x[size_x], int size_x){
     return sqrt(norm);
 }
 
-void get_e_vector(int size_e; double *e, int pos_of_one, int size_e){
+void get_e_vector(double *e, int pos_of_one, int size_e){
     int i;
     for (i=0; i<size_e; i++){
         e[i] = (i==pos_of_one) ? 1.0 : 0.0;
@@ -143,7 +143,7 @@ void multiply_matricies(matrix *m1, matrix *m2, matrix *result){
     }
 }
 
-void multiply_column_by_scalar(int size_n; double *n, int size_n, double scalar){
+void multiply_column_by_scalar(double *n, int size_n, double scalar){
     int i;
 #pragma acc loop gang(16), vector(32)
     for (i=0; i<size_n; i++){
@@ -151,7 +151,7 @@ void multiply_column_by_scalar(int size_n; double *n, int size_n, double scalar)
     }
 }
 
-void divide_column_by_scalar(int size_n; double n[size_n], int size_n, double scalar){
+void divide_column_by_scalar(double n[], int size_n, double scalar){
     int i;
 #pragma acc loop gang(16), vector(32)
     for (i=0; i<size_n; i++){
@@ -159,7 +159,7 @@ void divide_column_by_scalar(int size_n; double n[size_n], int size_n, double sc
     }
 }
 
-void get_v(int size_u; double u[size_u], int size_u){
+void get_v(double u[], int size_u){
     double norm_u = get_euclides_norm(u, size_u);
     divide_column_by_scalar(u, size_u, norm_u);
 }
@@ -348,7 +348,7 @@ int main(){
         int j,k;
         clock_t tic = clock();
 
-        matrix *A = get_random_matrix(200,200,100);
+        matrix *A = get_random_matrix(300,300,100);
         matrix *Q = make_zeroes_matrix(A->rows, A->cols);
         matrix *R = make_zeroes_matrix(A->rows, A->cols);
         make_QR_decomposition(A, Q, R);
