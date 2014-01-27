@@ -375,7 +375,11 @@ int main(){
             fprintf (fp, "\n");
         }
         fprintf(fp, "Frobenius norm: %f\n", frob);
-
+        fprintf(fp, "Wartosci wlasne:\n");
+        for (k=0; k<R->rows;++k) {
+            fprintf (fp, "%f ", R->v_arr[k][k]);
+        }
+        fprintf (fp, "\n");
         fclose (fp); // zamknij plik
 
         free_matrix_memory(QR);
